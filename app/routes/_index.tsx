@@ -18,7 +18,7 @@ export default function Index() {
           <h1 className="text-white text-4xl font-bold pt-20 text-center uppercase leading-relaxed">
             Welcome to Starlight
           </h1>
-          <h2 className="text-xl opacity-70 text-white">
+          <h2 className="text-xl opacity-70 text-white text-center">
             Principles of image enhancement through a magnifying glass
           </h2>
         </div>

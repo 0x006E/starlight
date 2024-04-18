@@ -1,4 +1,6 @@
 import type { MetaFunction } from "@remix-run/node";
+import Sky from "~/components/sky";
+import Uploader from "~/components/uploader";
 
 export const meta: MetaFunction = () => {
   return [
@@ -9,33 +11,19 @@ export const meta: MetaFunction = () => {
 
 export default function Index() {
   return (
-    <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}>
-      <h1>Welcome to Remix</h1>
-      <ul>
-        <li>
-          <a
-            target="_blank"
-            href="https://remix.run/tutorials/blog"
-            rel="noreferrer"
-          >
-            15m Quickstart Blog Tutorial
-          </a>
-        </li>
-        <li>
-          <a
-            target="_blank"
-            href="https://remix.run/tutorials/jokes"
-            rel="noreferrer"
-          >
-            Deep Dive Jokes App Tutorial
-          </a>
-        </li>
-        <li>
-          <a target="_blank" href="https://remix.run/docs" rel="noreferrer">
-            Remix Docs
-          </a>
-        </li>
-      </ul>
+    <div>
+      <Sky />
+      <div className="flex flex-col items-center  justify-center gap-20 h-screen">
+        <div>
+          <h1 className="text-white text-4xl font-bold pt-20 text-center uppercase leading-relaxed">
+            Welcome to Starlight
+          </h1>
+          <h2 className="text-xl opacity-70 text-white">
+            Principles of image enhancement through a magnifying glass
+          </h2>
+        </div>
+        <Uploader />
+      </div>
     </div>
   );
 }

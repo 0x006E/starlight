@@ -12,7 +12,7 @@ export default function Uploader() {
           width={40}
         />
         <div className="flex flex-col">
-          <p className="text-md">NextUI</p>
+          <p className="text-md">Denoise</p>
           <p className="text-small text-default-500">nextui.org</p>
         </div>
       </CardHeader>

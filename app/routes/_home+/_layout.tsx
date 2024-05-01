@@ -1,15 +1,20 @@
 import type { MetaFunction } from "@remix-run/node";
+import { Outlet } from "@remix-run/react";
 import Sky from "~/components/sky";
-import Uploader from "~/components/uploader";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "New Remix App" },
+    { title: "Starlight" },
     { name: "description", content: "Welcome to Remix!" },
   ];
 };
 
 export default function Index() {
+  // const greeting = useEventStream("http://localhost:8000/listen", {
+  //   deserialize: (raw) =>
+  //     JSON.parse(raw) as { size: number; current: number; image: string },
+  // });
+  // console.log(greeting);
   return (
     <div>
       <Sky />
@@ -18,11 +23,8 @@ export default function Index() {
           <h1 className="text-white text-4xl font-bold pt-20 text-center uppercase leading-relaxed">
             Welcome to Starlight
           </h1>
-          <h2 className="text-xl opacity-70 text-white text-center">
-            Principles of image enhancement through a magnifying glass
-          </h2>
         </div>
-        <Uploader />
+        <Outlet />
       </div>
     </div>
   );

@@ -1,32 +1,29 @@
+import { useNavigate, useSearchParams } from "@remix-run/react";
 import {
   ReactCompareSlider,
   ReactCompareSliderImage,
 } from "react-compare-slider";
+import Download from "~/components/downloader";
+
+const API_URL = "http://localhost:8000";
 
 function Image() {
+  const [urlSearchParams] = useSearchParams();
+  const navigate = useNavigate();
+  const real = urlSearchParams.get("real");
+  const denoised = urlSearchParams.get("denoised");
+  if (!real || !denoised) return navigate("/");
+  console.log(real, denoised);
   return (
-    <div>
-      <div className="max-h-[60vh]  max-w-[80%] mb-20  rounded-lg drop-shadow-md p-5 bg-white grid items-center overflow-hidden">
+    <div className="flex items-center flex-col">
+      <div className="mx-auto max-h-[60vh]  max-w-[80%] mb-20  rounded-lg drop-shadow-md p-5 bg-white grid items-center overflow-hidden">
         <ReactCompareSlider
           boundsPadding={0}
           itemOne={
-            <ReactCompareSliderImage
-              alt="Image one"
-              src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/lady-1.png"
-            />
+            <ReactCompareSliderImage alt="Image one" src={API_URL + real} />
           }
           itemTwo={
-            <ReactCompareSliderImage
-              alt="Image two"
-              src="https://raw.githubusercontent.com/nerdyman/stuff/main/libs/react-compare-slider/demo-images/lady-2.png"
-              style={{
-                backgroundColor: "white",
-                backgroundImage:
-                  "\n linear-gradient(45deg, #ccc 25%, transparent 25%),\n linear-gradient(-45deg, #ccc 25%, transparent 25%),\n linear-gradient(45deg, transparent 75%, #ccc 75%),\n linear-gradient(-45deg, transparent 75%, #ccc 75%)",
-                backgroundPosition: "0 0, 0 10px, 10px -10px, -10px 0px",
-                backgroundSize: "20px 20px",
-              }}
-            />
+            <ReactCompareSliderImage alt="Image two" src={API_URL + denoised} />
           }
           keyboardIncrement="5%"
           position={50}
@@ -36,6 +33,7 @@ function Image() {
           }}
         />
       </div>
+      <Download url={API_URL + denoised} filename="denoised" />
     </div>
   );
 }

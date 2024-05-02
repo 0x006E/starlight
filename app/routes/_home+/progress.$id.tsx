@@ -1,5 +1,5 @@
 import { Progress } from "@nextui-org/react";
-import { useNavigate, useParams } from "@remix-run/react";
+import { createSearchParams, useNavigate, useParams } from "@remix-run/react";
 import { useEventStream } from "@remix-sse/client";
 import { useEffect } from "react";
 import { toast } from "sonner";
@@ -11,6 +11,7 @@ type ProgressMessage = {
 type FinishedMessage = {
   id: string;
   filepath: string;
+  realpath: string;
 };
 
 type ResponseMessage = FinishedMessage | ProgressMessage;
@@ -23,14 +24,24 @@ function ProgressBar() {
     deserialize: (raw) => JSON.parse(raw) as ProgressMessage,
   });
   const completedEvent = useEventStream("http://localhost:8000/listen/" + id, {
-    channel: "completed",
+    returnLatestOnly: true,
+    channel: "end",
     deserialize: (raw) => JSON.parse(raw) as FinishedMessage,
   });
+  console.log(event, completedEvent);
 
   useEffect(() => {
-    if (completedEvent && completedEvent.length > 0) {
+    console.log(completedEvent);
+    if (completedEvent) {
       toast.success("Processed succesfully");
-      navigate("/image");
+      const data = {
+        real: completedEvent.realpath,
+        denoised: completedEvent.filepath,
+      };
+      navigate({
+        pathname: "/image",
+        search: createSearchParams(data).toString(),
+      });
     }
   }, [completedEvent]);
 
